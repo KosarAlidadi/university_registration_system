@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from courses import views
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -25,7 +26,7 @@ from accounts.views import CustomLogoutView # View سفارشی که در مرح
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('courses.urls')),
+    path("courses/", views.courses_page, name="courses"),
 
 
 
