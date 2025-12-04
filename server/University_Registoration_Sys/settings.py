@@ -25,7 +25,10 @@ SECRET_KEY = 'django-insecure-gi(#39debk5y#74e*-^qpra7jcc4xm#ogcq!rvdv%^i%pl^$5k
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+"localhost",
+ "127.0.0.1"
+]
 
 
 # Application definition
@@ -67,7 +70,7 @@ ROOT_URLCONF = 'University_Registoration_Sys.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR.parent / "client"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -128,6 +131,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR.parent / "client",
+]
+
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
