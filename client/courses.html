@@ -29,8 +29,8 @@
       </div>
 
       <nav class="nav">
-        <button class="nav-item" onclick="window.location.href='dashboard.html'">
-          <img src="{% static 'images/streamline-flex-color_dashboard-3-flat.svg' %}" class="brand-logo-small" alt="Dashboard">
+        <button class="nav-item" onclick="window.location.href='{% url 'dashboard' %}'"> 
+           <img src="{% static 'images/streamline-flex-color_dashboard-3-flat.svg' %}" class="brand-logo-small" alt="Dashboard">
           Dashboard
         </button>
         <button class="nav-item active">
