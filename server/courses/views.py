@@ -1,18 +1,18 @@
 from django.shortcuts import render
 from .models import Course
-from rest_framework import generics,permissions
+from rest_framework import generics
 from .serializers import CourseSerializer
 
 # -------------------  Course API   -------------------
 class CourseListCreate(generics.ListCreateAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
-    permission_classes = [permissions.IsAdminUser]
+    # permission_classes = [permissions.IsAdminUser]
 
 class CourseRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
-    permission_classes = [permissions.IsAdminUser]
+    # permission_classes = [permissions.IsAdminUser]
 
 
 # -------------------  TimeSlot API   -------------------
