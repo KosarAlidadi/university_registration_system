@@ -1,19 +1,12 @@
-# accounts/admin.py (نسخه اصلاح شده)
 
 from django.contrib import admin
 from .models import Profile
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    # 🌟🌟🌟 تنها فیلدهایی که قطعاً در مدل Profile شما وجود دارند: 🌟🌟🌟
     
-    # لیست فیلدهایی که در صفحه لیست نمایش داده می‌شوند
-    # ما فقط user و role را نگه می‌داریم و فیلدهای ناموجود را حذف می‌کنیم.
     list_display = ('user', 'role') 
     
-    # لیست فیلدهایی که برای فیلتر کردن در نوار جانبی استفاده می‌شوند
-    # ما فقط role را نگه می‌داریم.
     list_filter = ('role',)
     
-    # فیلدهایی که برای جستجو استفاده می‌شوند
     search_fields = ('user__username', 'user__first_name', 'user__last_name', 'role')
