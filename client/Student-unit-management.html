@@ -18,6 +18,7 @@
       <img src="{% static 'images/admin logo.svg' %}" class="brand-logo" alt="Admin Logo">
       <div>
         <div class="brand-title">Admin Dashboard</div>
+<<<<<<< Updated upstream
         <div class="brand-sub"> Unit Settings</div>
       </div>
     </div>
@@ -33,6 +34,19 @@
   </aside>
 
   <!-- MAIN -->
+=======
+        <div class="brand-sub"> Management</div>
+      </div>
+    </div>
+<!--
+    <nav class="nav">
+      <a href="{% url 'manage_courses' %}" class="nav-item">Manage Courses</a>
+      <a href="{% url 'unit_settings' %}" class="nav-item active">Unit Settings</a>
+    </nav>
+  
+
+   MAIN --></aside>
+>>>>>>> Stashed changes
   <main class="main">
 
     <header class="main-header">
@@ -41,12 +55,20 @@
 
     <section class="card">
       <div class="form-row">
+<<<<<<< Updated upstream
         <label for="minUnits">Minimum Units</label>
+=======
+        <label>Minimum Units</label>
+>>>>>>> Stashed changes
         <input type="number" id="minUnits" min="0">
       </div>
 
       <div class="form-row">
+<<<<<<< Updated upstream
         <label for="maxUnits">Maximum Units</label>
+=======
+        <label>Maximum Units</label>
+>>>>>>> Stashed changes
         <input type="number" id="maxUnits" min="0">
       </div>
 
@@ -54,15 +76,22 @@
         <button class="btn primary" id="saveBtn">Save</button>
         <button class="btn ghost" id="resetBtn">Reset</button>
       </div>
+<<<<<<< Updated upstream
 
       <p id="msg" style="margin-top:10px;"></p>
+=======
+>>>>>>> Stashed changes
     </section>
 
   </main>
 
 </div>
 
+<<<<<<< Updated upstream
 <script src="{% static 'js/unit-settings.js' %}"></script>
+=======
+<script src="{% static 'js/student-unit-management.js' %}"></script>
+>>>>>>> Stashed changes
 
 <script>
   if (!localStorage.getItem("access_token")) {
