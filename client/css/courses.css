@@ -17,9 +17,16 @@
   padding:16px 18px;
   border-bottom:1px solid #eef4f9;
   font-size:14px;
+  text-align: center;
+  vertical-align: middle;
 }
 
-.actions-cell{display:flex;gap:10px}
+.actions-cell{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .action-btn{
   padding:8px 12px;
   border-radius:8px;

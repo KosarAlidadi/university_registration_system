@@ -47,7 +47,7 @@ body{background:var(--bg);color:#123}
 
 .brand{display:flex;gap:12px;align-items:center}
 .brand-logo{width:40px;height:40px;object-fit:contain}
-.brand-logo-small{width:22px;height:22px;object-fit:contain}
+.brand-logo-small{width:22px;height:22px;object-fit:contain;}
 .brand-title{font-weight:700;color:#034078}
 .brand-sub{font-size:13px;color:var(--muted)}
 
@@ -65,7 +65,7 @@ body{background:var(--bg);color:#123}
   text-align:left;
 }
 .nav-item.active{background:#eaf4ff;color:var(--primary)}
-
+.title-icon{width:28px;height:28px;object-fit:contain;}
 /* BUTTONS */
 .btn{
   padding:10px 14px;
@@ -74,9 +74,26 @@ body{background:var(--bg);color:#123}
   cursor:pointer;
   font-weight:700;
 }
+.action-btn img{
+  background:transparent;
+}
 .btn.primary{background:var(--primary);color:#fff}
 .btn.ghost{background:transparent;border:1px solid #dbeafc;color:var(--primary)}
 .btn.danger{background:var(--danger);color:#fff}
+.icon-btn{
+  background: transparent;
+  padding: 6px;
+}
+
+.icon-btn:hover{
+  background: #eef7ff; 
+}
+
+.icon-btn img{
+  width:20px;
+  height:20px;
+  display:block;
+}
 
 /* CARD */
 .card{
