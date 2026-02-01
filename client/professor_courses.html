@@ -1,13 +1,13 @@
+{% load static %}
 <!doctype html>
 <html lang="fa">
 <head>
   <meta charset="utf-8">
   <title>Professor Courses</title>
 
-  <!-- CSS های قبلی -->
-  <link rel="stylesheet" href="css/common.css">
-  <link rel="stylesheet" href="css/courses.css">
-
+  <link rel="stylesheet" href="{% static 'css/common.css' %}">
+  <link rel="stylesheet" href="{% static 'css/courses.css' %}">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
@@ -17,7 +17,7 @@
   <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="brand">
-      <img src="images/student-logo.svg" class="brand-logo" alt="Logo">
+      <img src="{% static 'images/student-logo.svg' %}" class="brand-logo" alt="Logo">
       <div>
         <div class="brand-title">Professor Panel</div>
         <div class="brand-sub">My Courses</div>
@@ -26,7 +26,7 @@
 
     <nav class="nav">
       <button class="nav-item active">
-        <img src="images/icon-park_book-one.svg" class="brand-logo-small" alt="">
+        <img src="{% static 'images/icon-park_book-one.svg' %}" class="brand-logo-small" alt="">
         My Courses
       </button>
     </nav>
@@ -37,7 +37,7 @@
 
     <header class="main-header">
       <h2 class="title-with-logo">
-        <img src="images/hugeicons_course.svg" class="title-icon" alt="">
+        <img src="{% static 'images/hugeicons_course.svg' %}" class="title-icon" alt="">
         My Courses
       </h2>
     </header>
@@ -77,6 +77,6 @@
 </div>
 
 <!-- JS -->
-<script src="js/professor_courses.js"></script>
+<script src="{% static 'js/professor_courses.js' %}"></script>
 </body>
 </html>

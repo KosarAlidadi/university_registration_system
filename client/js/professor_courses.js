@@ -5,9 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const STORAGE_KEY = "professor_courses";
 
-  /* =======================
-     SEED DATA (Default Courses + Students)
-  ======================== */
+    //  SEED DATA 
+
   const DEFAULT_DATA = [
     {
       id: 1,
@@ -16,8 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
       units: 3,
       students: [
         { id: 11, first_name: "Ali", last_name: "Ahmadi", student_id: "401001" },
-        { id: 12, first_name: "Sara", last_name: "Hosseini", student_id: "401002" },
-        { id: 13, first_name: "Reza", last_name: "Karimi", student_id: "401003" }
+        { id: 12, first_name: "Sara", last_name: "Hosseini", student_id: "401002" }
       ]
     },
     {
@@ -26,19 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
       code: "CS302",
       units: 4,
       students: [
-        { id: 14, first_name: "Mina", last_name: "Abbasi", student_id: "401004" },
-        { id: 15, first_name: "Hamed", last_name: "Zarei", student_id: "401005" },
-        { id: 16, first_name: "Neda", last_name: "Shahri", student_id: "401006" }
-      ]
-    },
-    {
-      id: 3,
-      title: "Computer Networks",
-      code: "CS303",
-      units: 3,
-      students: [
-        { id: 17, first_name: "Sina", last_name: "Mohammadi", student_id: "401007" },
-        { id: 18, first_name: "Laleh", last_name: "Rahimi", student_id: "401008" }
+        { id: 13, first_name: "Mina", last_name: "Abbasi", student_id: "401003" }
       ]
     }
   ];
@@ -47,35 +33,48 @@ document.addEventListener("DOMContentLoaded", function () {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(DEFAULT_DATA));
   }
 
-  /* =======================
-     MOCK API
-  ======================== */
-  function apiGetProfessorCourses() {
-    return Promise.resolve(JSON.parse(localStorage.getItem(STORAGE_KEY)));
+ 
+   //  API FUNCTIONS 
+
+  async function apiGetProfessorCourses() {
+    return {
+      success: true,
+      data: JSON.parse(localStorage.getItem(STORAGE_KEY))
+    };
   }
 
-  function apiRemoveStudent(courseId, studentId) {
+  async function apiRemoveStudent(courseId, studentId) {
     const courses = JSON.parse(localStorage.getItem(STORAGE_KEY));
     const course = courses.find(c => c.id === courseId);
-    if (!course) return Promise.resolve({ success: false });
+
+    if (!course) {
+      return { success: false, message: "Course not found" };
+    }
+
     course.students = course.students.filter(s => s.id !== studentId);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(courses));
-    return Promise.resolve({ success: true });
+
+    return { success: true };
   }
 
-  /* =======================
-     UI LOGIC
-  ======================== */
+  
+   //  UI LOGIC
+  
+
   let courses = [];
   let activeCourseId = null;
 
   async function loadCourses() {
-    courses = await apiGetProfessorCourses();
+    const res = await apiGetProfessorCourses();
+    if (!res.success) return;
+
+    courses = res.data;
     renderCourses();
   }
 
   function renderCourses() {
     coursesTbody.innerHTML = "";
+
     courses.forEach(c => {
       const tr = document.createElement("tr");
       tr.innerHTML = `
@@ -83,7 +82,9 @@ document.addEventListener("DOMContentLoaded", function () {
         <td>${c.code}</td>
         <td>${c.units}</td>
         <td class="actions-cell">
-          <button class="action-btn" data-course="${c.id}">View Students</button>
+          <button class="action-btn" data-course="${c.id}">
+            View Students
+          </button>
         </td>
       `;
       coursesTbody.appendChild(tr);
@@ -109,7 +110,9 @@ document.addEventListener("DOMContentLoaded", function () {
         <td>${s.last_name}</td>
         <td>${s.student_id}</td>
         <td class="actions-cell">
-          <button class="action-btn btn-delete remove-student-btn" data-student="${s.id}">
+          <button
+            class="action-btn btn-delete remove-student-btn"
+            data-student="${s.id}">
             Remove
           </button>
         </td>
@@ -118,9 +121,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  /* =======================
-     EVENTS
-  ======================== */
+  //   EVENTS
+
+
   document.addEventListener("click", async (e) => {
     const viewBtn = e.target.closest("[data-course]");
     if (viewBtn) {
@@ -129,17 +132,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const removeBtn = e.target.closest(".remove-student-btn");
     if (removeBtn) {
-      const studentId = Number(removeBtn.dataset.student);
       if (!confirm("Remove this student from the course?")) return;
 
-      await apiRemoveStudent(activeCourseId, studentId);
-      courses = await apiGetProfessorCourses();
+      const studentId = Number(removeBtn.dataset.student);
+      const res = await apiRemoveStudent(activeCourseId, studentId);
+      if (!res.success) return;
+
+      await loadCourses();
       renderStudents(activeCourseId);
     }
   });
 
-  /* =======================
-     INIT
-  ======================== */
+
+//     INIT
+
+
   loadCourses();
 });

@@ -3,9 +3,9 @@ const emptyState = document.getElementById("emptyState");
 
 const STORAGE_KEY = "student_my_courses";
 
-/* =======================
-   SEED DEFAULT COURSES
-======================= */
+
+//   SEED DATA
+
 
 const DEFAULT_COURSES = [
   {
@@ -23,53 +23,42 @@ const DEFAULT_COURSES = [
     units: 4,
     time: "Wed 14-16",
     location: "Room 105"
-  },
-  {
-    id: 3,
-    title: "Computer Networks",
-    code: "CS303",
-    units: 3,
-    time: "Tue 8-10",
-    location: "Room 110"
   }
 ];
 
-// Seed only once
 if (!localStorage.getItem(STORAGE_KEY)) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(DEFAULT_COURSES));
 }
 
-/* =======================
-   MOCK API (LOCAL)
-======================= */
 
-function apiGetMyCourses() {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve(JSON.parse(localStorage.getItem(STORAGE_KEY)));
-    }, 300);
-  });
+  // API FUNCTIONS
+
+
+async function apiGetMyCourses() {
+  return {
+    success: true,
+    data: JSON.parse(localStorage.getItem(STORAGE_KEY))
+  };
 }
 
-function apiRemoveMyCourse(courseId) {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      let courses = JSON.parse(localStorage.getItem(STORAGE_KEY));
-      courses = courses.filter(c => c.id !== courseId);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(courses));
-      resolve({ success: true });
-    }, 300);
-  });
+async function apiRemoveMyCourse(courseId) {
+  let courses = JSON.parse(localStorage.getItem(STORAGE_KEY));
+  courses = courses.filter(c => c.id !== courseId);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(courses));
+
+  return { success: true };
 }
 
-/* =======================
-   UI LOGIC
-======================= */
+//   UI LOGIC
+
 
 let myCourses = [];
 
 async function loadMyCourses() {
-  myCourses = await apiGetMyCourses();
+  const res = await apiGetMyCourses();
+  if (!res.success) return;
+
+  myCourses = res.data;
   renderMyCourses();
 }
 
@@ -85,7 +74,6 @@ function renderMyCourses() {
 
   myCourses.forEach(c => {
     const tr = document.createElement("tr");
-
     tr.innerHTML = `
       <td>${c.title}</td>
       <td>${c.code}</td>
@@ -100,25 +88,27 @@ function renderMyCourses() {
         </button>
       </td>
     `;
-
     tbody.appendChild(tr);
   });
 }
+
+
+  // EVENTS
+
 
 document.addEventListener("click", async (e) => {
   const btn = e.target.closest(".drop-course-btn");
   if (!btn) return;
 
-  const courseId = Number(btn.dataset.id);
-
   if (!confirm("Are you sure you want to remove this course?")) return;
 
+  const courseId = Number(btn.dataset.id);
   await apiRemoveMyCourse(courseId);
   await loadMyCourses();
 });
 
-/* =======================
-   INIT
-======================= */
+
+   // INIT
+
 
 loadMyCourses();

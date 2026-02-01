@@ -26,9 +26,12 @@
       </div>
 
       <nav class="nav">
-
+                <button class="nav-item" onclick="window.location.href='{% url 'studentMyCourses' %}'"> 
+            <img src="{% static 'images/icon-park_book-one.svg' %}" class="brand-logo-small" alt="">
+        My Courses
+        </button>
         <button class="nav-item active">
-          <img src="{% static 'images/icon-park_book-one.svg' %}" class="brand-logo-small">
+           <img src="{% static 'images/icon-park_book-one.svg' %}" class="brand-logo-small">
           Courses Offered
         </button>
 
